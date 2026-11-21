@@ -1,0 +1,37 @@
+{
+  "discordAppId": "1573741136206503947",
+  "largeImageKey": "vrchat",
+  "contactEmail": "",
+  "askForLogin": true,
+  "statusPollMinutes": 2,
+  "updateIntervalSeconds": 1,
+  "showWorldImage": true,
+  "showWorldButton": true,
+  "worldButtonLabel": "View World",
+  "showStatus": true,
+  "showInstanceType": true,
+  "showPlayerCount": true,
+  "showTimer": true,
+  "hideWorldInPrivateInstances": true,
+  "privateInstanceTypes": [
+    "Friends+",
+    "Friends",
+    "Invite",
+    "Invite+",
+    "Group",
+    "Group+"
+  ],
+  "privateInstanceText": "In a private instance",
+  "hideOnDoNotDisturb": true,
+  "doNotDisturbText": "Do Not Disturb",
+  "loadingText": "Loading...",
+  "separator": " · ",
+  "playerCountFormat": "{0}/{1}",
+  "playerCountFallbackFormat": "{0} players",
+  "statusLabels": {
+    "join me": "Join Me",
+    "active": "Online",
+    "ask me": "Ask Me",
+    "busy": "Do Not Disturb"
+  }
+}
