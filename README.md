@@ -5,7 +5,11 @@ Displays the world, status (Join Me / Do Not Disturb, etc.), instance type, play
 
 ## Setup
 
-### Set up the Discord application
+### Discord application (optional)
+The included `config.json` already contains an Application ID, so you can run the app without creating
+your own Discord application.
+
+If you prefer to use your own application:
 1. Open the [Discord Developer Portal](https://discord.com/developers/applications) and create an application.
 2. Copy its **Application ID** into `discordAppId` in `config.json`.
 3. In the application, open **Rich Presence → Art Assets** and upload `assets/vrchat.png`.
