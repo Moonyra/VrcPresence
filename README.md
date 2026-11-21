@@ -34,8 +34,9 @@ Public instance:
 
 ![Example Rich Presence in a public instance](assets/publicinstance.png)
 
-Private instance: The world name and world image are hidden. Instead, the `vrchat` asset uploaded above
-is shown.
+Private instances, and public instances while your VRChat status is **Ask Me**, hide the world name,
+world image, and world button to protect privacy. Instead, the `vrchat` asset uploaded above is shown.
+With **Do Not Disturb**, the world is also hidden when `hideOnDoNotDisturb` is enabled.
 
 ![Example Rich Presence in a private instance](assets/privateinstance.png)
 

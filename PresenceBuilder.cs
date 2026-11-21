@@ -27,9 +27,10 @@ static class PresenceBuilder
             return rp;
         }
 
-        bool isPrivate = cfg.HideWorldInPrivateInstances
-            && w.InstanceType != null
-            && cfg.PrivateInstanceTypes.Contains(w.InstanceType, StringComparer.OrdinalIgnoreCase);
+        bool isPrivate = vrcStatus == "ask me"
+            || (cfg.HideWorldInPrivateInstances
+                && w.InstanceType != null
+                && cfg.PrivateInstanceTypes.Contains(w.InstanceType, StringComparer.OrdinalIgnoreCase));
 
         if (isPrivate)
         {
