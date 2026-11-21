@@ -8,6 +8,7 @@ sealed class WorldState
     public string? WorldName;
     public string? InstanceType;
     public int Players;
+    public bool PlayersKnown;
     public DateTime? Since;
     public DateTime? PlayStartedAt;
 
@@ -24,8 +25,9 @@ sealed class WorldState
         WorldName = null;
         InstanceType = null;
         Players = 0;
+        PlayersKnown = false;
         Since = null;
     }
 }
 
-sealed record WorldInfo(string? ImageUrl, int? Capacity);
+sealed record WorldInfo(string? ImageUrl, int? Capacity, int? CurrentPlayers);

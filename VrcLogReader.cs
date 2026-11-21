@@ -82,8 +82,16 @@ sealed class VrcLogReader
             return;
         }
 
-        if (PlayerJoinedRx.IsMatch(line)) State.Players++;
-        else if (PlayerLeftRx.IsMatch(line)) State.Players = Math.Max(0, State.Players - 1);
+        if (PlayerJoinedRx.IsMatch(line))
+        {
+            State.Players++;
+            State.PlayersKnown = true;
+        }
+        else if (PlayerLeftRx.IsMatch(line))
+        {
+            State.Players = Math.Max(0, State.Players - 1);
+            State.PlayersKnown = true;
+        }
     }
 
     static string InstanceTypeOf(string instance)

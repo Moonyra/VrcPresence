@@ -66,7 +66,9 @@ static class PresenceBuilder
             if (!string.IsNullOrEmpty(label)) parts.Add(label);
         }
         if (cfg.ShowInstanceType && w.InstanceType != null) parts.Add(w.InstanceType);
-        if (cfg.ShowPlayerCount && w.Players > 0) parts.Add(PlayerText(cfg, w.Players, info?.Capacity));
+        var players = info?.CurrentPlayers ?? (w.PlayersKnown ? w.Players : null);
+        if (cfg.ShowPlayerCount && players is >= 0)
+            parts.Add(PlayerText(cfg, players.Value, info?.Capacity));
         if (parts.Count > 0) rp.State = Fit(string.Join(cfg.Separator, parts));
 
         if (cfg.ShowTimer && w.PlayStartedAt != null)

@@ -113,6 +113,7 @@ sealed class VrcApi : IDisposable
 
         string? image = null;
         int? capacity = null;
+        int? currentPlayers = null;
         bool cacheable = false;
         try
         {
@@ -143,16 +144,20 @@ sealed class VrcApi : IDisposable
             // Genauere Kapazität der konkreten Instanz (falls abrufbar)
             if (!string.IsNullOrEmpty(instanceId))
             {
-                using var ires = await _http.GetAsync($"{Base}/instances/{worldId}:{Uri.EscapeDataString(instanceId)}");
+                var location = $"{worldId}:{EscapeInstanceId(instanceId)}";
+                using var ires = await _http.GetAsync($"{Base}/instances/{location}");
                 if (ires.IsSuccessStatusCode)
                 {
                     using var idoc = JsonDocument.Parse(await ires.Content.ReadAsStringAsync());
-                    var c = ReadInt(idoc.RootElement, "capacity");
+                    var instance = idoc.RootElement;
+                    var c = ReadInt(instance, "capacity");
                     if (c is > 0) capacity = c;
+                    currentPlayers = ReadInt(instance, "nUsers");
                 }
                 else if (ires.StatusCode != HttpStatusCode.NotFound)
                 {
-                    Ui.LogWarning($"VRChat instance information request failed ({(int)ires.StatusCode} {ires.ReasonPhrase}).");
+                    var body = await ires.Content.ReadAsStringAsync();
+                    Ui.LogWarning($"VRChat instance information request failed ({(int)ires.StatusCode} {ires.ReasonPhrase}): {ApiError(body)}");
                 }
             }
         }
@@ -161,7 +166,7 @@ sealed class VrcApi : IDisposable
             Ui.LogWarning("Could not retrieve VRChat world or instance information.", ex);
         }
 
-        var info = new WorldInfo(image, capacity);
+        var info = new WorldInfo(image, capacity, currentPlayers);
         if (cacheable) _infoCache[key] = info;
         return info;
     }
@@ -208,6 +213,11 @@ sealed class VrcApi : IDisposable
         e.TryGetProperty(name, out var p) && p.ValueKind == JsonValueKind.Number && p.TryGetInt32(out var v)
             ? (int?)v
             : null;
+
+    static string EscapeInstanceId(string instanceId) =>
+        Uri.EscapeDataString(instanceId)
+            .Replace("%28", "(", StringComparison.OrdinalIgnoreCase)
+            .Replace("%29", ")", StringComparison.OrdinalIgnoreCase);
 
     static string ApiError(string body)
     {

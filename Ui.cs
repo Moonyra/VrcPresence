@@ -54,6 +54,7 @@ static class Ui
             var lines = new List<string>
             {
                 "VRChat Rich Presence - Press Ctrl+C to exit",
+                $"Log file: {AppLog.FilePath}",
                 new string('-', Math.Min(width, 60)),
                 $"Discord:        {DiscordState}",
                 $"VRChat:         {VrcState}",

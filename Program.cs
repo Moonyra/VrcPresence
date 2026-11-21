@@ -96,7 +96,6 @@ static class Program
         Console.Clear();
         Console.CursorVisible = false;
         Ui.Log(api.LoggedIn ? "Started with a VRChat login." : "Started without a VRChat login.");
-        Ui.Log($"Log file: {AppLog.FilePath}");
 
         while (!cts.IsCancellationRequested)
         {
@@ -144,7 +143,7 @@ static class Program
                         {
                             infoFor = infoKey;
                             info = await api.GetWorldInfoAsync(worldId, log.State.InstanceId ?? "");
-                            Ui.Log($"World info: image {(info.ImageUrl != null ? "available" : "unavailable")}, max players {info.Capacity?.ToString() ?? "unknown"}.");
+                            Ui.Log($"World info: image {(info.ImageUrl != null ? "available" : "unavailable")}, players {info.CurrentPlayers?.ToString() ?? (log.State.PlayersKnown ? log.State.Players.ToString() : "unknown")}, max players {info.Capacity?.ToString() ?? "unknown"}.");
                         }
                     }
 
