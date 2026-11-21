@@ -26,6 +26,10 @@ If you prefer to use your own application:
 
 ### Example views
 
+Console:
+
+<img src="assets/console.png" alt="VRChat asset for private instances" height="300">
+
 Public instance:
 
 ![Example Rich Presence in a public instance](assets/publicinstance.png)
